@@ -39,7 +39,7 @@ public class RobotGeneral {
 
     public void move (double x, double y)
     {
-        if(linearOpMode.opModeIsActive()) {
+        while(linearOpMode.opModeIsActive()) {
             double firstBasis = x + y;
             double secondBasis = y - x;
             firstBasis = firstBasis / Math.sqrt(2);
@@ -50,7 +50,7 @@ public class RobotGeneral {
 
     public void setMove (double firstBasis, double secondBasis)
     {
-        if(linearOpMode.opModeIsActive()) {
+        while(linearOpMode.opModeIsActive()) {
             frontLeftMotor.setPower(firstBasis);
             backRightMotor.setPower(firstBasis);
             frontRightMotor.setPower(secondBasis);
@@ -59,7 +59,7 @@ public class RobotGeneral {
     }
 
     public void turn (int CW, double power){
-        if(linearOpMode.opModeIsActive()){
+        while(linearOpMode.opModeIsActive()){
             double leftPower = CW * power;
             double rightPower = -CW * power;
             setTurn(leftPower, rightPower);
@@ -67,7 +67,7 @@ public class RobotGeneral {
     }
 
     public void setTurn(double left, double right) {
-        if(linearOpMode.opModeIsActive()){
+        while(linearOpMode.opModeIsActive()){
             frontLeftMotor.setPower(left);
             backLeftMotor.setPower(left);
             frontRightMotor.setPower(right);
