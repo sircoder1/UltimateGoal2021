@@ -1,8 +1,3 @@
-/*
-First attempt at autonomous code Destriers 2021
-Created by Joel Samuel with Josh Faber and Jamie Heskett
- */
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
