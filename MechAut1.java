@@ -34,12 +34,9 @@ public class MechAut1 extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        while (opModeIsActive() && runtime.seconds()<2) {
 
-            Robot.move(0,0.5);
-        }
-
-        Robot.move(0,0);
+        Robot.autonMove(0,1500);
+        Robot.teleMove(0,0);
 
     }
 }

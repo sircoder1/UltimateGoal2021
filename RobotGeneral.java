@@ -37,20 +37,20 @@ public class RobotGeneral {
 
     //TeleOp movement
 
-    public void move (double x, double y)
+    public void teleMove (double x, double y)
     {
-        while(linearOpMode.opModeIsActive()) {
+        if(linearOpMode.opModeIsActive()) {
             double firstBasis = x + y;
             double secondBasis = y - x;
             firstBasis = firstBasis / Math.sqrt(2);
             secondBasis = secondBasis / Math.sqrt(2);
-            setMove(firstBasis, secondBasis);
+            teleSetMove(firstBasis, secondBasis);
         }
     }
 
-    public void setMove (double firstBasis, double secondBasis)
+    public void teleSetMove (double firstBasis, double secondBasis)
     {
-        while(linearOpMode.opModeIsActive()) {
+        if(linearOpMode.opModeIsActive()) {
             frontLeftMotor.setPower(firstBasis);
             backRightMotor.setPower(firstBasis);
             frontRightMotor.setPower(secondBasis);
@@ -58,20 +58,53 @@ public class RobotGeneral {
         }
     }
 
-    public void turn (int CW, double power){
-        while(linearOpMode.opModeIsActive()){
+
+
+    public void teleTurn (int CW, double power){
+        if(linearOpMode.opModeIsActive()){
             double leftPower = CW * power;
             double rightPower = -CW * power;
-            setTurn(leftPower, rightPower);
+            teleSetTurn(leftPower, rightPower);
         }
     }
 
-    public void setTurn(double left, double right) {
-        while(linearOpMode.opModeIsActive()){
+    public void teleSetTurn(double left, double right) {
+        if(linearOpMode.opModeIsActive()){
             frontLeftMotor.setPower(left);
             backLeftMotor.setPower(left);
             frontRightMotor.setPower(right);
             backRightMotor.setPower(right);
+        }
+    }
+
+    private double circumference = 2*Math.PI*48;
+    private int ticks = 1680;
+
+
+    public void autonMove(double x, double y)
+    {
+        if(linearOpMode.opModeIsActive()){
+            double firstBasis = x + y;
+            double secondBasis = y - x;
+            firstBasis = firstBasis * 0.25 / Math.sqrt(2);
+            secondBasis = secondBasis * 0.25 / Math.sqrt(2);
+            int firstTicks = (int) Math.round(firstBasis * ticks / (circumference));
+            int secondTicks = (int) Math.round(secondBasis * ticks / (circumference));
+            frontLeftMotor.setTargetPosition(firstTicks);
+            backRightMotor.setTargetPosition(firstTicks);
+            frontRightMotor.setTargetPosition(secondTicks);
+            backLeftMotor.setTargetPosition(secondTicks);
+            frontLeftMotor.setPower(firstBasis);
+            backRightMotor.setPower(firstBasis);
+            frontRightMotor.setPower(secondBasis);
+            backLeftMotor.setPower(secondBasis);
+            setMotorModeToPosition();
+            while((backLeftMotor.isBusy() || backRightMotor.isBusy() || frontRightMotor.isBusy() || frontLeftMotor.isBusy()) && linearOpMode.opModeIsActive())
+            {
+                //wait
+            }
+            stopAndResetEncoders();
+
         }
     }
 
@@ -133,9 +166,9 @@ public class RobotGeneral {
 
 
         //Set Directions
-        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        backLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        frontLeftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        frontRightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        backLeftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
 
 
