@@ -39,7 +39,7 @@ public class RobotGeneral {
 
     public void move (double x, double y)
     {
-        while(linearOpMode.opModeIsActive()) {
+        if (linearOpMode.opModeIsActive()) {
             double firstBasis = x + y;
             double secondBasis = y - x;
             firstBasis = firstBasis / Math.sqrt(2);
@@ -50,7 +50,7 @@ public class RobotGeneral {
 
     public void setMove (double firstBasis, double secondBasis)
     {
-        while(linearOpMode.opModeIsActive()) {
+        if (linearOpMode.opModeIsActive()) {
             frontLeftMotor.setPower(firstBasis);
             backRightMotor.setPower(firstBasis);
             frontRightMotor.setPower(secondBasis);
@@ -59,7 +59,7 @@ public class RobotGeneral {
     }
 
     public void turn (int CW, double power){
-        while(linearOpMode.opModeIsActive()){
+        if (linearOpMode.opModeIsActive()){
             double leftPower = CW * power;
             double rightPower = -CW * power;
             setTurn(leftPower, rightPower);
@@ -67,7 +67,7 @@ public class RobotGeneral {
     }
 
     public void setTurn(double left, double right) {
-        while(linearOpMode.opModeIsActive()){
+        if (linearOpMode.opModeIsActive()){
             frontLeftMotor.setPower(left);
             backLeftMotor.setPower(left);
             frontRightMotor.setPower(right);
@@ -136,7 +136,7 @@ public class RobotGeneral {
         frontLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         frontRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         backLeftMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
-        backRightMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        backRightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
 
         //Set Motor Power to Zero
