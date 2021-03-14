@@ -1,9 +1,3 @@
-/*
-    First Attempt at Driver-Controlled Code for the Destriers 2020-2021
-    Created by Josh Faber with Eshaan Mahajan, Joel Samuel, Benjaman Gantman, Erica Wang, and Jamie Heskett
- */
-
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -36,7 +30,6 @@ public class MechTele1 extends LinearOpMode{
     public void runOpMode() {
         Robot.init(hardwareMap);
         telemetry.addData("Status","TeleOp has been Initialized");
-        telemetry.update();
 
         waitForStart();
         while(opModeIsActive()){
@@ -50,12 +43,14 @@ public class MechTele1 extends LinearOpMode{
 
 
             if (Math.abs(G1rightStickX) > 0.1 || Math.abs(G1rightStickY) > 0.1){
-                Robot.teleMove(G1rightStickX * 0.25, G1rightStickY * 0.25);
+                Robot.move(G1rightStickX, G1rightStickY);
             } else if (Math.abs(G1leftStickX) > 0.2) {
                 int CW = (int) (G1leftStickX / Math.abs(G1leftStickX));
-                Robot.teleTurn(CW, Math.abs(G1leftStickX));
+                Robot.turn(CW, Math.abs(G1leftStickX));
             } else {
-                Robot.teleMove(0,0);
+                Robot.move(0,0);
+
+
 
             }
         }
